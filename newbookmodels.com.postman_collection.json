@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "53ddc315-36b2-42e4-a898-91038d7e4b9f",
+		"name": "newbookmodels.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20541160"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "TestAuthClient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", data.token_data.token);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"idTest\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.user.id).to.eql(\"ce60ff37-214d-4e54-95cf-f551af34279d\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"typeTest\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.user.type).to.eql(\"model\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"emailTest\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var client_email = pm.environment.get(\"client_email\")\r",
+									"    pm.expect(jsonData.user.email).to.eql(client_email);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"typeTest\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.user.type).to.eql(\"model\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"statusTest\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.user.status).to.eql(\"pending\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{client_email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{client_password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}{{ver}}auth/signin/",
+							"host": [
+								"{{url}}{{ver}}auth"
+							],
+							"path": [
+								"signin",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Описание API: [http://newbookalliance.github.io/API/](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVFGM08tdHFHcFlvaDB3Z29OVFkwR1VvLWZ5Z3xBQ3Jtc0tuWXliNnlLbWF0RlBSbHJxMGg4M1NocXJ1YU1QanRraGQ4M2xnd2taOG9GX25HbnBETTRUQjFKTUcySDZGTGRhNWdqWW5RcE9qTEo2bTJDQ1FEUzBGbnFpWU5hTzluS3JGdWUyZzhFcGIwQURhQU1yMA&q=http://newbookalliance.github.io/API/&v=dEipdewLf-s)"
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "TestProfileInformation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}{{ver}}onboarding/browse/",
+							"host": [
+								"{{url}}{{ver}}onboarding"
+							],
+							"path": [
+								"browse",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TestFindUserById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"countTesT\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.count).to.eql(6);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}{{ver}}users/e1fce1b6-622a-434c-962e-f0e1cd5e4af5/portfolio/",
+							"host": [
+								"{{url}}{{ver}}users"
+							],
+							"path": [
+								"e1fce1b6-622a-434c-962e-f0e1cd5e4af5",
+								"portfolio",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TestChangeNamePetrov",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"TestChangeFirstName\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.first_name).to.eql(\"Petro\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TestChangeLastName\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.last_name).to.eql(\"Petrov\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "Petro",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Petrov",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}{{ver}}model/self/",
+							"host": [
+								"{{url}}{{ver}}model"
+							],
+							"path": [
+								"self",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TestChangeNameIvanov",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"TestChangeFirstName\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.first_name).to.eql(\"Ivano\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TestChangeLastName\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.last_name).to.eql(\"Ivanov\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "Ivano",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Ivanov",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}{{ver}}model/self/",
+							"host": [
+								"{{url}}{{ver}}model"
+							],
+							"path": [
+								"self",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
